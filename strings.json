@@ -5,7 +5,6 @@
 	"water_proximity_page_url": "https://sure-qa-challenge.vercel.app/water-proximity",
 	"quote_page_url": "https://sure-qa-challenge.vercel.app/quote",
 	
-
 	"next_button_locator": "//*[@id=\"__next\"]/div/div/div/div/div/form/div[2]/button",
 	"building_material_straw_radio_button_locator": "//input[@type='radio' and @value='straw']",
 	"water_proximity_yes_radio_button_locator": "//*[@id=\"__next\"]/div/div/div/div/div/form/div[1]/fieldset/div/label[1]/span[1]/span[1]/input",
