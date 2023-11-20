@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import json
 
 
 class HurricaneInsuranceTestCase(unittest.TestCase):
@@ -15,12 +16,24 @@ class HurricaneInsuranceTestCase(unittest.TestCase):
         self.browser = webdriver.Chrome(service = cService)
         self.addCleanup(self.browser.quit)
 
+        self.f = open('locators.json')
+        self.locators = json.load(self.f)
+
+    def tearDown(self):
+        self.f.close()
+
+    def test_using_locators_file(self):
+        print(self.locators['some_text'])
+
+        self.assertEqual(self.locators['some_text'], "someMoreText", "IT WORKED!!!")
+
+
     def test_landing_page_zip_code_entry(self):
         """Assert that landing page and zip code entry works"""
         self.browser.get('https://sure-qa-challenge.vercel.app/')
         self.assertIn('Hurricane Insurance', self.browser.title)
 
-        waitPageLoad = WebDriverWait(self.browser, 30).until(EC.presence_of_element_located((By.NAME, "postalCode")))
+        # waitPageLoad = WebDriverWait(self.browser, 30).until(EC.presence_of_element_located((By.NAME, "postalCode")))
         element = self.browser.find_element(By.NAME, "postalCode")
         assert element is not None
         element.send_keys('98105' + Keys.RETURN)
