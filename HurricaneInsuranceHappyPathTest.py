@@ -33,23 +33,15 @@ class HurricaneInsuranceTestCase(unittest.TestCase):
     def tearDown(self):
         self.f.close()
 
-    """
-    def test_using_locators_file(self):
-        print(self.strings['some_text'])
-
-        self.assertEqual(self.strings['some_text'], "someMoreText", "IT WORKED!!!")
-    """
-
-
     def test_landing_page_zip_code_entry(self):
         """Assert that landing page and zip code entry works"""
         self.browser.get(self.landing_page_url)
         self.assertIn('Hurricane Insurance', self.browser.title)
 
         # waitPageLoad = WebDriverWait(self.browser, 30).until(EC.presence_of_element_located((By.NAME, "postalCode")))
-        element = self.browser.find_element(By.NAME, "postalCode")
-        assert element is not None
-        element.send_keys('98105' + Keys.RETURN)
+        zip_code_field = self.browser.find_element(By.NAME, "postalCode")
+        assert zip_code_field is not None
+        zip_code_field.send_keys('98105' + Keys.RETURN)
 
     def test_building_material_question_page_data_entry(self):
         """Assert that building material selection works"""
@@ -72,7 +64,6 @@ class HurricaneInsuranceTestCase(unittest.TestCase):
         next_button = self.browser.find_element(By.XPATH, self.next_button_locator)
         assert next_button is not None
         next_button.click()
-
     
     def test_quote_page_checkbox_exists(self):
         """Assert that the quote page checkbox exists and is clickable"""
@@ -88,27 +79,27 @@ class HurricaneInsuranceTestCase(unittest.TestCase):
         """Assert that the entire flow happy path functions correctly"""
         self.browser.get(self.landing_page_url)
         self.assertIn('Hurricane Insurance', self.browser.title)
-        element = self.browser.find_element(By.NAME, "postalCode")
-        assert element is not None
-        element.send_keys('98105' + Keys.RETURN)
+        zip_code_field = self.browser.find_element(By.NAME, "postalCode")
+        assert zip_code_field is not None
+        zip_code_field.send_keys('98105' + Keys.RETURN)
 
         waitPageLoad = WebDriverWait(self.browser, 30).until(EC.url_to_be(self.building_materials_page_url))
         self.assertIn(self.building_materials_page_url, self.browser.current_url)
-        element = self.browser.find_element(By.XPATH, self.building_material_straw_radio_button_locator)
-        assert element is not None
-        element.click()
-        next_button = self.browser.find_element(By.XPATH, self.next_button_locator)
-        assert next_button is not None
-        next_button.click()
+        building_materials_straw_radio_button = self.browser.find_element(By.XPATH, self.building_material_straw_radio_button_locator)
+        assert building_materials_straw_radio_button is not None
+        building_materials_straw_radio_button.click()
+        building_materials_next_button = self.browser.find_element(By.XPATH, self.next_button_locator)
+        assert building_materials_next_button is not None
+        building_materials_next_button.click()
 
         waitPageLoad = WebDriverWait(self.browser, 30).until(EC.url_to_be(self.water_proximity_page_url))
         self.assertIn(self.water_proximity_page_url, self.browser.current_url)
-        element = self.browser.find_element(By.XPATH, self.water_proximity_yes_radio_button_locator)
-        assert element is not None
-        element.click()
-        next_button = self.browser.find_element(By.XPATH, self.next_button_locator)
-        assert next_button is not None
-        next_button.click()
+        water_proximity_yes_button = self.browser.find_element(By.XPATH, self.water_proximity_yes_radio_button_locator)
+        assert water_proximity_yes_button is not None
+        water_proximity_yes_button.click()
+        water_proximity_next_button = self.browser.find_element(By.XPATH, self.next_button_locator)
+        assert water_proximity_next_button is not None
+        water_proximity_next_button.click()
 
         waitPageLoad = WebDriverWait(self.browser, 30).until(EC.url_to_be(self.quote_page_url))
         self.assertIn(self.quote_page_url, self.browser.current_url)
