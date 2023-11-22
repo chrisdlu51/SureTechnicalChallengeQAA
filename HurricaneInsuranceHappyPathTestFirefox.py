@@ -51,6 +51,8 @@ class HurricaneInsuranceTestCase(unittest.TestCase):
         """Assert that building material selection works"""
         self.browser.get(self.building_materials_page_url)
         self.assertEqual(self.building_materials_page_url, self.browser.current_url, "Curent url does not match building materials page url")
+        waitPageLoad = WebDriverWait(self.browser, 30).until(EC.presence_of_element_located((By.XPATH, self.building_material_straw_radio_button_locator)))
+
         building_materials_straw_radio_button = self.browser.find_element(By.XPATH, self.building_material_straw_radio_button_locator)
         assert building_materials_straw_radio_button is not None
         building_materials_straw_radio_button.click()
